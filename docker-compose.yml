@@ -1,0 +1,24 @@
+version: "3.8"
+services:
+  phoenix:
+    build:
+      context: .
+      dockerfile: docker/hello/Dockerfile
+    environment:
+      - PGHOST
+      - PGDATABASE
+      - PGPASSWORD
+      - PGPORT
+      - PGUSER
+    image: phoenix
+    ports:
+      - 80:4000
+  db:
+    image: postgres:13
+    environment:
+      - POSTGRES_DB=other
+        #${PGDATABASE}
+      - POSTGRES_PASSWORD=${PGPASSWORD}
+      - POSTGRES_USER=${PGUSER}
+    expose:
+      - 5432
